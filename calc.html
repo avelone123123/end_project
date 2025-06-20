@@ -42,7 +42,6 @@
             font-size: 16px;
         }
         
-        /* Стили для хедера и логотипа */
         .header {
             background-color: var(--bg-color);
             padding: 15px 0;
@@ -54,15 +53,14 @@
             margin: 0 auto;
             padding: 0 15px;
             display: flex;
-            justify-content: center; /* Центрируем логотип */
+            justify-content: center;
             align-items: center;
         }
 
         .logo img {
-            height: 40px; /* Высота логотипа */
+            height: 40px;
             display: block;
         }
-
 
         .calculator-container {
             max-width: 1200px;
@@ -143,6 +141,25 @@
             text-align: center;
         }
 
+        /* ИЗМЕНЕННЫЙ СТИЛЬ для плашки "Выгодно" */
+        .profitable-tag {
+            background-color: var(--tag-bestseller-bg);
+            color: white;
+            font-size: 9px;
+            font-weight: 600;
+            /* Делаем плашку "изогнутой" (формой таблетки) */
+            border-radius: 10em;
+            padding: 4px 10px;
+            margin-left: 6px;
+            text-transform: uppercase;
+            vertical-align: middle;
+            /* Добавляем легкий наклон для динамики */
+            transform: rotate(-3deg);
+            display: inline-block; /* Обязательно для transform */
+            box-shadow: 1px 2px 4px rgba(0,0,0,0.2);
+            letter-spacing: 0.5px;
+        }
+        
         #priceTable tbody tr:last-child td {
             border-bottom: none;
         }
@@ -161,18 +178,17 @@
             flex-wrap: wrap;
         }
         
-        /* ИЗМЕНЕНО: Размер стикеров уменьшен ~на 20% */
         .tag {
-            font-size: 9px; /* Уменьшено с 11px */
+            font-size: 9px;
             font-weight: 600;
-            padding: 3px 8px; /* Уменьшено с 4px 10px */
-            border-radius: 10px; /* Уменьшено с 12px */
+            padding: 3px 8px;
+            border-radius: 10px;
             color: var(--tag-text-color);
             text-transform: uppercase;
             letter-spacing: 0.5px;
             display: inline-flex;
             align-items: center;
-            gap: 4px; /* Уменьшено с 5px */
+            gap: 4px;
             box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.1), 0 1px 3px rgba(0,0,0,0.3);
         }
 
@@ -396,8 +412,6 @@
             body { padding: 10px; font-size: 14px; }
             .table-wrapper::before { display: block; }
             #priceTable th, #priceTable td { padding: 8px 10px; }
-            /* СТРОКА НИЖЕ БЫЛА УДАЛЕНА, ЧТОБЫ СТОЛБЕЦ "БРЕНД" БЫЛ ВИДЕН НА ТЕЛЕФОНЕ */
-            /* .col-brand { display: none; } */
             .quantity-input { width: 40px; height: 32px; font-size: 14px; }
             .summary-panel { flex-direction: column; align-items: stretch; }
             .actions { width: 100%; flex-direction: column; }
@@ -423,11 +437,18 @@
             <table id="priceTable">
                 <thead>
                     <tr>
+                        <th style="border-bottom: none;"></th>
+                        <th style="border-bottom: none;"></th>
+                        <th style="text-align: center; border-bottom: none; padding-bottom: 4px; color: var(--text-muted-color);" colspan="3">Скидка от суммы заказа</th>
+                        <th style="border-bottom: none;"></th>
+                        <th style="border-bottom: none;"></th>
+                    </tr>
+                    <tr>
                         <th class="col-name">Препарат</th>
                         <th class="col-brand">Бренд</th>
-                        <th class="col-price price-p1-header">До 60k</th>
-                        <th class="col-price price-p2-header">60-100k</th>
-                        <th class="col-price price-p3-header">100k+</th>
+                        <th class="col-price price-p1-header">до 60000 ₸</th>
+                        <th class="col-price price-p2-header">60000-100000 ₸</th>
+                        <th class="col-price price-p3-header">от 100000 ₸ <span class="profitable-tag">Выгодно</span></th>
                         <th class="col-qty">Количество</th>
                         <th class="col-sum">Сумма</th>
                     </tr>
@@ -437,7 +458,7 @@
         </div>
         <div class="summary-panel">
             <div class="totals">
-                <div>Применяется ценовой уровень: <span id="tier">до 60 000 ₸</span></div>
+                <div>Применяется ценовой уровень: <span id="tier">до 60000 ₸</span></div>
                 <div><span class="savings" id="savings">Экономия: 0 ₸</span></div>
                 <div class="kaspi-info" id="kaspi"></div>
                 <div>Итоговая сумма: <span class="final-total" id="total">0 ₸</span></div>
@@ -457,9 +478,9 @@
             csvPath: "https://docs.google.com/spreadsheets/d/e/2PACX-1vRDyEkJ9XNV89qqGQhPsl4Fx8DC9tMyRpAt6SKX0IZKHmr8-a6qgLx6B0iCwnZu4wMx7O3qYMCnueFh/pub?gid=291189384&single=true&output=csv",
             whatsAppPhone: "77780990459",
             priceTiers: {
-                tier1: { limit: 0, label: "до 60 000 ₸" },
-                tier2: { limit: 60000, label: "от 60 000 до 100 000 ₸" },
-                tier3: { limit: 100000, label: "свыше 100 000 ₸" },
+                tier1: { limit: 0, label: "до 60000 ₸" },
+                tier2: { limit: 60000, label: "60000-100000 ₸" },
+                tier3: { limit: 100000, label: "от 100000 ₸" },
             },
             kaspiMultiplier: 1.1
         },
@@ -558,7 +579,6 @@
                 row.dataset.category = currentCategory;
                 if (this.state.collapsedCategories.has(currentCategory)) row.classList.add('hidden');
                 
-                // ИЗМЕНЕНО: Текст на стикерах обновлен
                 const tagsHtml = `
                     <div class="tags-container">
                         ${item.isBestseller ? '<span class="tag tag-bestseller">🔥 HOT</span>' : ''}
@@ -727,8 +747,8 @@
                 }
             });
             const tier = baseTotal >= this.config.priceTiers.tier3.limit
-                         ? 3
-                         : baseTotal >= this.config.priceTiers.tier2.limit ? 2 : 1;
+                            ? 3
+                            : baseTotal >= this.config.priceTiers.tier2.limit ? 2 : 1;
             let finalTotal = 0;
             let orderText = "*Мой заказ:*\n";
             const orderParams = [];
