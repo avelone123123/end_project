@@ -2,6 +2,7 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8" />
+    <meta name="format-detection" content="telephone=no">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5, user-scalable=yes" />
     <title>Прайс-лист и Калькулятор заказа</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -141,21 +142,19 @@
             text-align: center;
         }
 
-        /* ИЗМЕНЕННЫЙ СТИЛЬ для плашки "Выгодно" */
+        /* ИСПРАВЛЕНИЕ 2: Уменьшен размер плашки "Выгодно" */
         .profitable-tag {
             background-color: var(--tag-bestseller-bg);
             color: white;
-            font-size: 9px;
+            font-size: 7px; /* Было 9px */
             font-weight: 600;
-            /* Делаем плашку "изогнутой" (формой таблетки) */
             border-radius: 10em;
-            padding: 4px 10px;
-            margin-left: 6px;
+            padding: 3px 8px; /* Было 4px 10px */
+            margin-left: 5px; /* Было 6px */
             text-transform: uppercase;
             vertical-align: middle;
-            /* Добавляем легкий наклон для динамики */
             transform: rotate(-3deg);
-            display: inline-block; /* Обязательно для transform */
+            display: inline-block;
             box-shadow: 1px 2px 4px rgba(0,0,0,0.2);
             letter-spacing: 0.5px;
         }
